@@ -3,6 +3,7 @@ import '../widgets/dashboard_card.dart';
 import '../widgets/welcome_banner.dart';
 import 'checklist_screen.dart';
 import 'weather_screen.dart';
+import 'ai_assistant_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 const HomeScreen({super.key});
@@ -79,6 +80,20 @@ builder: (context) => const WeatherScreen(),
                 );
               },
             ),
+
+            DashboardCard(
+icon: Icons.smart_toy,
+title: "AI Guide",
+onTap: () {
+Navigator.push(
+context,
+MaterialPageRoute(
+builder: (context) => const AIAssistantScreen(),
+),
+);
+},
+),
+
 
             DashboardCard(
               icon: Icons.phone,
