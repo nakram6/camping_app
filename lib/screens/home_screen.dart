@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/dashboard_card.dart';
 import '../widgets/welcome_banner.dart';
-import 'checklist_screen.dart';
+import 'checklist/checklist_screen.dart';
 import 'weather_screen.dart';
-import 'ai_assistant_screen.dart';
+import 'ai/ai_assistant_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 const HomeScreen({super.key});
