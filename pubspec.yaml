@@ -28,6 +28,7 @@ dependencies:
   flutter_dotenv: ^6.0.1
   flutter_gemma: ^0.13.6
   flutter_compass: ^0.8.1
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

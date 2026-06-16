@@ -5,7 +5,8 @@ import 'checklist/checklist_screen.dart';
 import 'weather/weather_screen.dart';
 import 'ai/ai_assistant_screen.dart';
 import 'qibla/qibla_screen.dart';
-
+import 'emergency/emergency_screen.dart';
+import 'trips/trip_screen.dart';
 class HomeScreen extends StatefulWidget {
 const HomeScreen({super.key});
 
@@ -103,6 +104,19 @@ builder: (context) => const AIAssistantScreen(),
 );
 },
 ),
+DashboardCard(
+  icon: Icons.forest,
+  title: "Trips",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const TripScreen(),
+      ),
+    );
+  },
+),
 
 
             DashboardCard(
@@ -128,6 +142,26 @@ builder: (context) => const AIAssistantScreen(),
               title: "Photos",
               onTap: () {},
             ),
+
+
+DashboardCard(
+  icon: Icons.emergency,
+  title: "Emergency",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const EmergencyScreen(),
+      ),
+    );
+  },
+),
+
+
+
+
+
           ],
         ),
       ],
