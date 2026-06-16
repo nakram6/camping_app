@@ -1,61 +1,43 @@
-import 'dart:convert';
+import 'dart:math';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+class QiblaService {
+static const double kaabaLat =
+21.4225;
 
-class OpenAIService {
-Future<String> askCampingAI(String question) async {
-try {
-final apiKey =
-dotenv.env['OPENAI_API_KEY'];
+static const double kaabaLon =
+39.8262;
 
+static double calculateQibla(
+double latitude,
+double longitude,
+) {
+final lat1 =
+latitude * pi / 180;
 
-  if (apiKey == null || apiKey.isEmpty) {
-    return "OpenAI API key not found.";
-  }
+```
+final lon1 =
+    longitude * pi / 180;
 
-  print("OpenAI Key Loaded:");
-print(dotenv.env['OPENAI_API_KEY']);
+final lat2 =
+    kaabaLat * pi / 180;
 
-  final response = await http.post(
-    Uri.parse(
-      'https://api.openai.com/v1/chat/completions',
-    ),
-    headers: {
-      'Authorization': 'Bearer $apiKey',
-      'Content-Type': 'application/json',
-    },
-    body: jsonEncode({
-      "model": "gpt-4o-mini",
-      "messages": [
-        {
-          "role": "system",
-          "content":
-              "You are an expert camping guide. Help users with camping trips, outdoor safety, weather preparation, camping gear, meal planning, hiking, navigation, first aid, and family camping."
-        },
-        {
-          "role": "user",
-          "content": question
-        }
-      ],
-      "temperature": 0.7,
-      "max_tokens": 500
-    }),
-  );
+final lon2 =
+    kaabaLon * pi / 180;
 
-  if (response.statusCode != 200) {
-    return "OpenAI Error: ${response.statusCode}";
-  }
+final y =
+    sin(lon2 - lon1);
 
-  final data =
-      jsonDecode(response.body);
+final x =
+    cos(lat1) * tan(lat2) -
+    sin(lat1) *
+        cos(lon2 - lon1);
 
-  return data["choices"][0]
-          ["message"]["content"] ??
-      "No response received.";
-} catch (e) {
-  return "Error: $e";
-}
+final bearing =
+    atan2(y, x);
+
+return (bearing * 180 / pi +
+        360) %
+    360;
 
 
 }

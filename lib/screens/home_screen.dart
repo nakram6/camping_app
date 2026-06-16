@@ -4,6 +4,7 @@ import '../widgets/welcome_banner.dart';
 import 'checklist/checklist_screen.dart';
 import 'weather/weather_screen.dart';
 import 'ai/ai_assistant_screen.dart';
+import 'qibla/qibla_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 const HomeScreen({super.key});
@@ -57,11 +58,19 @@ backgroundColor: Colors.grey[100],
 ),
 
 
-            DashboardCard(
-              icon: Icons.explore,
-              title: "Qibla",
-              onTap: () {},
-            ),
+           DashboardCard(
+  icon: Icons.explore,
+  title: "Qibla",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const QiblaScreen(),
+      ),
+    );
+  },
+),
 
             DashboardCard(
               icon: Icons.map,
