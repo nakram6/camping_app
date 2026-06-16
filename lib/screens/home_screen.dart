@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/dashboard_card.dart';
 import '../widgets/welcome_banner.dart';
 import 'checklist/checklist_screen.dart';
-import 'weather_screen.dart';
+import 'weather/weather_screen.dart';
 import 'ai/ai_assistant_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,16 +43,17 @@ backgroundColor: Colors.grey[100],
           mainAxisSpacing: 15,
           children: [
             DashboardCard(
-icon: Icons.wb_sunny,
-title: "Weather",
-onTap: () {
-Navigator.push(
-context,
-MaterialPageRoute(
-builder: (context) => const WeatherScreen(),
-),
-);
-},
+  icon: Icons.wb_sunny,
+  title: "Weather",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const WeatherScreen(),
+      ),
+    );
+  },
 ),
 
 
