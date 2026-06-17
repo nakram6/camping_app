@@ -2,22 +2,22 @@ import 'ai_service.dart';
 import 'openai_service.dart';
 import 'gemma_service.dart';
 
+import '../settings/ai_settings_service.dart';
+
 class AIManager {
-static AIService get service {
-return OpenAIService();
+  static AIService get service {
+    final mode =
+        AISettingsService.getMode();
 
+    switch (mode) {
+      case 'gemma':
+        return GemmaService();
 
-// Future version:
+      case 'openai':
+        return OpenAIService();
 
-// final online =
-//     await NetworkService.hasInternet();
-
-// if (online) {
-//   return OpenAIService();
-// }
-
-// return GemmaService();
-
-
-}
+      default:
+        return OpenAIService();
+    }
+  }
 }

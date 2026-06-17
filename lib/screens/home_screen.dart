@@ -7,6 +7,12 @@ import 'ai/ai_assistant_screen.dart';
 import 'qibla/qibla_screen.dart';
 import 'emergency/emergency_screen.dart';
 import 'trips/trip_screen.dart';
+import 'maps/offline_map_screen.dart';
+import 'settings/settings_screen.dart';
+import 'location/location_screen.dart';
+import 'location/nearby_places_screen.dart';
+import 'emergency/sos_screen.dart';
+
 class HomeScreen extends StatefulWidget {
 const HomeScreen({super.key});
 
@@ -74,11 +80,18 @@ backgroundColor: Colors.grey[100],
 ),
 
             DashboardCard(
-              icon: Icons.map,
-              title: "Offline Map",
-              onTap: () {},
-            ),
-
+  icon: Icons.map,
+  title: "Maps",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const OfflineMapScreen(),
+      ),
+    );
+  },
+),
             DashboardCard(
               icon: Icons.check_circle,
               title: "Checklist",
@@ -119,11 +132,7 @@ DashboardCard(
 ),
 
 
-            DashboardCard(
-              icon: Icons.phone,
-              title: "Emergency",
-              onTap: () {},
-            ),
+            
 
             DashboardCard(
               icon: Icons.book,
@@ -137,11 +146,70 @@ DashboardCard(
               onTap: () {},
             ),
 
+DashboardCard(
+  icon: Icons.location_on,
+  title: "Location",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const LocationScreen(),
+      ),
+    );
+  },
+),
+
+DashboardCard(
+  icon: Icons.place,
+  title: "Nearby",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const NearbyPlacesScreen(),
+      ),
+    );
+  },
+),
+
+DashboardCard(
+  icon: Icons.sos,
+  title: "SOS",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const SOSScreen(),
+      ),
+    );
+  },
+),
+
+
+
             DashboardCard(
               icon: Icons.photo_camera,
               title: "Photos",
               onTap: () {},
             ),
+
+DashboardCard(
+  icon: Icons.settings,
+  title: "Settings",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+             const AISettingsScreen(),
+      ),
+    );
+  },
+),
+
 
 
 DashboardCard(
