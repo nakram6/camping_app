@@ -4,15 +4,28 @@ import 'database/hive_init.dart';
 
 import 'screens/home_screen.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'screens/auth/auth_wrapper.dart';
+
 Future<void> main() async {
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options:
+        DefaultFirebaseOptions
+            .currentPlatform,
+  );
 
-await HiveInit.initialize();
+  await dotenv.load(
+    fileName: ".env",
+  );
 
+  await HiveInit.initialize();
 
-runApp(const CampingApp());
+  runApp(
+    const CampingApp(),
+  );
 }
 
 class CampingApp extends StatelessWidget {
@@ -27,7 +40,7 @@ theme: ThemeData(
 colorSchemeSeed: Colors.green,
 useMaterial3: true,
 ),
-home: const HomeScreen(),
+home: const AuthWrapper(),
 );
 }
 }

@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 
 import '../../services/settings/ai_settings_service.dart';
+import '../../services/auth/auth_service.dart';
 
 class AISettingsScreen
     extends StatefulWidget {
@@ -31,6 +33,10 @@ class _AISettingsScreenState
     });
   }
 
+  Future<void> logout() async {
+    await AuthService.logout();
+  }
+
   @override
   Widget build(
       BuildContext context) {
@@ -40,7 +46,7 @@ class _AISettingsScreenState
           'AI Settings',
         ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           RadioListTile(
             title:
@@ -89,8 +95,25 @@ class _AISettingsScreenState
               value!,
             ),
           ),
+
+          const Divider(),
+
+          ListTile(
+            leading: const Icon(
+              Icons.logout,
+              color: Colors.red,
+            ),
+            title: const Text(
+              'Logout',
+            ),
+            subtitle: const Text(
+              'Sign out of Camping Companion',
+            ),
+            onTap: logout,
+          ),
         ],
       ),
     );
   }
 }
+

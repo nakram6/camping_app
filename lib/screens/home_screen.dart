@@ -12,6 +12,11 @@ import 'settings/settings_screen.dart';
 import 'location/location_screen.dart';
 import 'location/nearby_places_screen.dart';
 import 'emergency/sos_screen.dart';
+import 'members/all_members_screen.dart';
+import '../services/trips/trip_service.dart';
+import '../services/trips/current_trip_service.dart';
+import 'games/games_screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
 const HomeScreen({super.key});
@@ -21,7 +26,77 @@ State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-int currentIndex = 0;
+  int currentIndex = 0;
+
+  String selectedTrip = "";
+
+  List<Map<String, String>> trips = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    trips = TripService.loadTrips();
+
+    selectedTrip =
+        CurrentTripService.loadCurrentTrip();
+
+    if (selectedTrip.isEmpty &&
+        trips.isNotEmpty) {
+      selectedTrip =
+          trips.first["name"] ?? "";
+    }
+  }
+
+  Future<void> selectTrip() async {
+    trips = TripService.loadTrips();
+
+    if (trips.isEmpty) return;
+
+    final selected =
+        await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title:
+              const Text("Select Trip"),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: trips.length,
+              itemBuilder:
+                  (context, index) {
+                return ListTile(
+                  title: Text(
+                    trips[index]["name"] ??
+                        "",
+                  ),
+                  onTap: () {
+                    Navigator.pop(
+                      context,
+                      trips[index]["name"],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+
+    if (selected != null) {
+      await CurrentTripService
+          .saveCurrentTrip(
+        selected,
+      );
+
+      setState(() {
+        selectedTrip = selected;
+      });
+    }
+  }
 
 @override
 Widget build(BuildContext context) {
@@ -39,9 +114,34 @@ backgroundColor: Colors.grey[100],
     padding: const EdgeInsets.all(16),
     child: Column(
       children: [
-        const WelcomeBanner(),
+       const WelcomeBanner(),
 
-        const SizedBox(height: 20),
+const SizedBox(height: 16),
+
+Card(
+  elevation: 4,
+  child: ListTile(
+    leading: const Icon(
+      Icons.forest,
+      color: Colors.green,
+    ),
+    title: Text(
+      selectedTrip.isEmpty
+          ? "No Trip Selected"
+          : selectedTrip,
+    ),
+    subtitle:
+        const Text("Current Trip"),
+    trailing: IconButton(
+      icon: const Icon(
+        Icons.swap_horiz,
+      ),
+      onPressed: selectTrip,
+    ),
+  ),
+),
+
+const SizedBox(height: 20),
 
         GridView.count(
           shrinkWrap: true,
@@ -131,7 +231,19 @@ DashboardCard(
   },
 ),
 
-
+DashboardCard(
+  icon: Icons.games,
+  title: "Games",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const GamesScreen(),
+      ),
+    );
+  },
+),
             
 
             DashboardCard(
@@ -140,11 +252,19 @@ DashboardCard(
               onTap: () {},
             ),
 
-            DashboardCard(
-              icon: Icons.people,
-              title: "Members",
-              onTap: () {},
-            ),
+         DashboardCard(
+  icon: Icons.people,
+  title: "Members",
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            const AllMembersScreen(),
+      ),
+    );
+  },
+),
 
 DashboardCard(
   icon: Icons.location_on,

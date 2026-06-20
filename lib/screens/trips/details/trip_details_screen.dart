@@ -4,7 +4,7 @@ import '../checklist/trip_checklist_screen.dart';
 import '../journal/trip_journal_screen.dart';
 import '../members/trip_members_screen.dart';
 import '../photos/trip_photos_screen.dart';
-
+import '../expenses/trip_expenses_screen.dart';
 class TripDetailsScreen extends StatelessWidget {
 final String tripName;
 
@@ -88,6 +88,27 @@ tripName,
             );
           },
         ),
+
+
+_buildCard(
+  context,
+  Icons.attach_money,
+  "Expenses",
+  Colors.green,
+  () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            TripExpensesScreen(
+          tripName: tripName,
+        ),
+      ),
+    );
+  },
+),
+
+
 
         _buildCard(
           context,

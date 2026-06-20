@@ -7,24 +7,45 @@ class OfflineMapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const LatLng windsor = LatLng(
+      42.3149,
+      -83.0364,
+    );
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Offline Maps"),
+        title: const Text(
+          "Maps",
+        ),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
       body: FlutterMap(
         options: const MapOptions(
-          initialCenter: LatLng(
-            42.3149,
-            -83.0364,
-          ),
-          initialZoom: 12,
+          initialCenter: windsor,
+          initialZoom: 13,
         ),
         children: [
           TileLayer(
             urlTemplate:
                 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName:
+                'com.nadeemakram.campingcompanion',
+          ),
+
+          MarkerLayer(
+            markers: [
+              Marker(
+                point: windsor,
+                width: 50,
+                height: 50,
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
+            ],
           ),
         ],
       ),

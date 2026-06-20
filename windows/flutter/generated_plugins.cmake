@@ -3,8 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  cloud_firestore
   file_selector_windows
-  flutter_gemma
+  firebase_auth
+  firebase_core
   geolocator_windows
   url_launcher_windows
 )
